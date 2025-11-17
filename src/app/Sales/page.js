@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import Header from "@/components/Header";
 export default function Sales() {
   return (
       <div className="my-5">
