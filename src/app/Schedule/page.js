@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import Header from "@/components/Header";
 export default function Schedule() {
   return (
       <div className="my-5">
