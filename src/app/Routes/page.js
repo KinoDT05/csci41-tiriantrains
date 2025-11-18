@@ -1,9 +1,37 @@
 import Header from "@/components/Header";
+import Table from "@/components/Table";
+
+const columns = [
+  { key: "trainId", label: "TrainID" },
+  { key: "date", label: "Date" },
+  { key: "crew", label: "Crew In Charge" },
+  { key: "task", label: "Task" },
+  { key: "condition", label: "Condition" },
+];
+
+const data = [
+  {
+    trainId: "S001",
+    date: "2025-12-20",
+    crew: "The Clean Up Crew",
+    task: "Cleaning",
+    condition: "Good",
+  },
+  {
+    trainId: "S001",
+    date: "2025-12-20",
+    crew: "The Clean Up Crew",
+    task: "Cleaning",
+    condition: "Good",
+  },
+];
 
 export default function Routes() {
   return (
       <div className="my-5">
       <Header name="Routes" desc="This view contains a list of routes." />
+            <Table columns={columns} data={data} />
+      
       </div>
     );
 }
