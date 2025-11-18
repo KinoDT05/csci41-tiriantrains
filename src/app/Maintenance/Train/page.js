@@ -1,5 +1,5 @@
 import Table from "@/components/Table";
-import IntAttribute from "@/components/IntAttribute";
+import Attribute from "@/components/Attribute";
 import BoolAttribute from "@/components/BoolAttribute";
 
 /**
@@ -44,10 +44,10 @@ export default function Train() {
           <div className="flex flex-row gap-5">
 
             {/* Replace this with a map */}
-            <IntAttribute name="Model" value="S103" />
-            <IntAttribute name="Max Speed (kph)" value="120" />
-            <IntAttribute name="No. of Seats" value="70" />
-            <IntAttribute name="No. of Toilets" value="70" />
+            <Attribute name="Model" value="S103" />
+            <Attribute name="Max Speed (kph)" value="120" />
+            <Attribute name="No. of Seats" value="70" />
+            <Attribute name="No. of Toilets" value="70" />
           </div>
           
       </div>  
