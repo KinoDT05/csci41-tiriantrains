@@ -3,16 +3,24 @@
 :root {
   --background: #FEFFEF;
   --foreground: #171717;
-  --maincolor: #ECEDDE;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #FEFFEF;
-    --maincolor: #ECEDDE;
-
   }
+}
+
+@theme {
+  --color-primary: #ECEDDE;
+  --color-secondary: #484848;
+  --color-ternary: #D7D7D7;
+  --color-background: #FEFFEF;
+  --color-true: #C5FFC7;
+  --color-false: #FFBCBC;
+
+  
 }
 
 body {

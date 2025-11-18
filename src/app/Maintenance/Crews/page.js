@@ -1,6 +1,10 @@
-import Header from "@/components/Header";
 import Table from "@/components/Table";
+import Header from "@/components/Header";
 
+/**
+ * Make your queries here!!!
+ * This is just a sample
+ */
 const columns = [
   { key: "trainId", label: "TrainID" },
   { key: "date", label: "Date" },
@@ -26,12 +30,13 @@ const data = [
   },
 ];
 
-export default function Routes() {
+export default function Crews() {
   return (
       <div className="my-5">
-      <Header name="Routes" desc="This view contains a list of routes." />
-            <Table columns={columns} data={data} />
-      
+      <Header name="Crew List" desc="This view contains a list of ticket sales." />
+      <Table columns={columns} data={data} />
+
       </div>
+      
     );
 }
