@@ -1,6 +1,6 @@
-import Header from "@/components/Header";
 import Table from "@/components/Table";
 import IntAttribute from "@/components/IntAttribute";
+import BoolAttribute from "@/components/BoolAttribute";
 
 /**
  * Make your queries here!!!
@@ -31,19 +31,38 @@ const data = [
   },
 ];
 
+
 // End of Queries
 
 export default function Train() {
   return (
     <div className="my-10">
-    <div className="bg-[#ECEDDE] p-5 rounded-3xl my-5">
-        <div className="text-6xl font-bold">Train</div>    
-        <IntAttribute name="Model" value="S103" />
-        
-        </div>    
-    <a href="/Maintenance/Employees">Employee List</a>
-    <a href="/Maintenance/Crews">Crews</a>
-    <Table columns={columns} data={data} />
+
+      {/*Inside the header */}
+      <div className="bg-primary p-5 rounded-3xl my-5">
+          <div className="text-6xl font-bold my-2">Train ID: S001</div>    
+          <div className="flex flex-row gap-5">
+
+            {/* Replace this with a map */}
+            <IntAttribute name="Model" value="S103" />
+            <IntAttribute name="Max Speed (kph)" value="120" />
+            <IntAttribute name="No. of Seats" value="70" />
+            <IntAttribute name="No. of Toilets" value="70" />
+          </div>
+          
+      </div>  
+      
+      <div className="flex ">
+      {/* Replace this with a map */}
+        <BoolAttribute name="Reclining Seats" bool={true} />  
+        <BoolAttribute name="Folding Table" bool={true} />  
+        <BoolAttribute name="Disability Access" bool={true} />  
+        <BoolAttribute name="Luggage Access" bool={false} />  
+        <BoolAttribute name="Vending Machine" bool={true} />  
+        <BoolAttribute name="Food Service" bool={true} />  
+      </div>
+      
+      <Table columns={columns} data={data} />
 
     </div>
   );

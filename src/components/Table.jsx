@@ -8,14 +8,14 @@ export default function Table({
   gap = "gap-3",
 }) {
   return (
-    <div className="w-full">
+    <div className="w-full my-3">
       
       {/* Header */}
       <div
         className="
           flex flex-row
           justify-between
-          bg-[#3F3A37] 
+          bg-secondary 
           text-white 
           rounded-full 
           py-3 
@@ -37,7 +37,7 @@ export default function Table({
             className="
               flex flex-row 
               justify-between
-              bg-[#EFEFE4] 
+              bg-primary 
               py-4 
               px-6 
               rounded-xl 

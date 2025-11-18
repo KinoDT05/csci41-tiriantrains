@@ -9,10 +9,10 @@ export default function NavBar() {
         </div>
 
         <div className="flex flex-row gap-14 text-xl">
-            <a href="/Maintenance">Maintenance</a>
-            <a href="/Routes">Routes</a>
-            <a href="/Sales">Sales</a>
-            <a href="/Schedule">Schedule</a>
+            <a className="hover:underline" href="/Maintenance">Maintenance</a>
+            <a className="hover:underline" href="/Routes">Routes</a>
+            <a className="hover:underline" href="/Sales">Sales</a>
+            <a className="hover:underline" href="/Schedule">Schedule</a>
     </div>
     </div>
 
