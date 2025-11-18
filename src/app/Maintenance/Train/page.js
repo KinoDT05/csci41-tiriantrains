@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Table from "@/components/Table";
+import IntAttribute from "@/components/IntAttribute";
 
 /**
  * Make your queries here!!!
@@ -32,11 +33,14 @@ const data = [
 
 // End of Queries
 
-export default function Maintenance() {
+export default function Train() {
   return (
     <div className="my-10">
-    <Header name="Maintenance History" desc="This view contains a list of maintenance histories." />
-    
+    <div className="bg-[#ECEDDE] p-5 rounded-3xl my-5">
+        <div className="text-6xl font-bold">Train</div>    
+        <IntAttribute name="Model" value="S103" />
+        
+        </div>    
     <a href="/Maintenance/Employees">Employee List</a>
     <a href="/Maintenance/Crews">Crews</a>
     <Table columns={columns} data={data} />

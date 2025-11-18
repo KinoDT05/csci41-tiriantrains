@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
 import Table from "@/components/Table";
+import Header from "@/components/Header";
 
 /**
  * Make your queries here!!!
@@ -30,19 +30,13 @@ const data = [
   },
 ];
 
-// End of Queries
-
-export default function Maintenance() {
+export default function Crews() {
   return (
-    <div className="my-10">
-    <Header name="Maintenance History" desc="This view contains a list of maintenance histories." />
-    
-    <a href="/Maintenance/Employees">Employee List</a>
-    <a href="/Maintenance/Crews">Crews</a>
-    <Table columns={columns} data={data} />
+      <div className="my-5">
+      <Header name="Crew List" desc="This view contains a list of ticket sales." />
+      <Table columns={columns} data={data} />
 
-    </div>
-  );
+      </div>
+      
+    );
 }
-
-
