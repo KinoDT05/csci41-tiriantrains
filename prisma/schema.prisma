@@ -9,6 +9,11 @@ enum Train_Type_enum {
   S
 }
 
+enum Location_enum {
+  Intertown
+  WestWood
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,11 +25,11 @@ datasource db {
 }
 
 model User {
-  cutomerID Int         @id @default(autoincrement())
+  customerID Int         @id @default(autoincrement())
   givenName String
   lastName  String
   gender    Gender_enum @default(Others)
-
+  tickets Ticket[]
   @@map(name: "users")
 }
 
@@ -47,6 +52,7 @@ model Train {
   trainModelID         Int
   trainModel           TrainModel           @relation(fields: [trainModelID], references: [modelID])
   maintenanceHistories MaintenanceHistory[]
+  schedules Schedule[]
 }
 
 model Crew {
@@ -66,3 +72,60 @@ model MaintenanceHistory {
   @@id([date, maintainedTrainID, maintainer])
 }
 
+model Station {
+   stationID Int @id @default(autoincrement())
+   stationName String @unique
+   location Location_enum @default(Intertown)
+   originRoutes        Route[]  @relation("OriginRelation")
+   destinationRoutes   Route[]  @relation("DestinationRelation")
+}
+
+model Route {
+   routeID Int @id @default(autoincrement())
+   
+   originID Int
+   originStation Station @relation("OriginRelation" ,fields: [originID], references:[stationID])
+
+   destinationID Int
+   destinationStation Station @relation("DestinationRelation", fields:[destinationID], references: [stationID])
+
+   durationInMinutes Int
+   cost Int
+
+   schedules Schedule[]
+}
+
+model Schedule {
+   scheduleID Int @id @default(autoincrement())
+
+   routeID Int
+   route Route @relation(fields:[routeID], references:[routeID])
+
+   trainID Int
+   trainInTransit Train @relation(fields:[trainID], references:[trainID])
+
+   departure DateTime
+   Arrival DateTime?
+
+   itinerary Itinerary[]
+}
+
+
+model Ticket {
+   ticketID Int @id @default(autoincrement())
+   
+   customerID Int
+   customer User @relation(fields:[customerID], references: [customerID])
+
+   itinerary Itinerary[]
+}
+
+model Itinerary {
+   itineraryID Int @id @default(autoincrement())
+
+   scheduleID Int
+   schedule Schedule @relation(fields:[scheduleID], references:[scheduleID])
+
+   ticketID Int
+   ticket Ticket @relation(fields:[ticketID], references:[ticketID])
+}
