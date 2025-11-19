@@ -5,8 +5,8 @@ enum Gender_enum {
 }
 
 enum Train_Type_enum {
-  AType
-  SType
+  A
+  S
 }
 
 generator client {
@@ -65,3 +65,4 @@ model MaintenanceHistory {
 
   @@id([date, maintainedTrainID, maintainer])
 }
+

@@ -22,15 +22,14 @@ export default async function Maintenance() {
         orderBy: { trainID: "asc" },
     });
 
-    
-
     const data = trains.map(t => ({
         trainId: `T-${t.trainID.toString().padStart(4, '0')}`,
-        trainModelID: `${t.trainID.trainModel}-${t.trainModelID.toString().padStart(3, '0') }`,
+        trainModelID: `${t.trainModel.trainType}-${t.trainModelID.toString().padStart(3, '0') }`,
     }));
 
     console.log(columns)
     console.log(data)
+
     // End of Queries
    return (
     <div className="my-10">
