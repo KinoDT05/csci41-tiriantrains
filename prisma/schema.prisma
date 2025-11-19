@@ -1,0 +1,23 @@
+enum Gender_enum {
+	Male
+	Female
+	Others
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("PRISMA_DATABASE_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL") // uses a direct connection
+}
+
+model User {
+  cutomer_id    Int     @id @default(autoincrement())
+  Given_Name	String
+  Last_Name		String
+  Gender	Gender_enum @default(Others)
+  @@map(name: "users")
+}
