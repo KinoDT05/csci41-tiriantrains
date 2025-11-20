@@ -36,6 +36,7 @@ model User {
 model TrainModel {
   modelID             Int             @id @default(autoincrement())
   trainType           Train_Type_enum
+  maxSpeed            Int             @default(0)
   noSeats             Int             @default(100)
   noToilets           Int             @default(0)
   hasRecliningSeats   Boolean         @default(false)
@@ -66,6 +67,7 @@ model MaintenanceHistory {
   maintainedTrainID Int
   maintainer        String
   task              String
+  condition         String 
   crewAssigned      Crew     @relation(fields: [maintainer], references: [crewName])
   trainMaintained   Train    @relation(fields: [maintainedTrainID], references: [trainID])
 
