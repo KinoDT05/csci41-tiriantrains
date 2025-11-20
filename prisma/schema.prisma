@@ -67,7 +67,7 @@ model MaintenanceHistory {
   maintainedTrainID Int
   maintainer        String
   task              String
-  condition         String 
+  condition         String @default(" ")
   crewAssigned      Crew     @relation(fields: [maintainer], references: [crewName])
   trainMaintained   Train    @relation(fields: [maintainedTrainID], references: [trainID])
 
