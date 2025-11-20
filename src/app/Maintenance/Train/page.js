@@ -14,27 +14,38 @@ const columns = [
   { key: "condition", label: "Condition" },
 ];
 
-const data = [
-  {
-    trainId: "S001",
-    date: "2025-12-20",
-    crew: "The Clean Up Crew",
-    task: "Cleaning",
-    condition: "Good",
-  },
-  {
-    trainId: "S001",
-    date: "2025-12-20",
-    crew: "The Clean Up Crew",
-    task: "Cleaning",
-    condition: "Good",
-  },
-];
-
-
 // End of Queries
 
-export default function Train() {
+export default async function Train() {
+  const trainModelDetails = await prisma.trainModel.findMany({
+    include: {},
+    orderBy: {modelID: "asc"},
+  });
+
+  const maintenanceHistoryDetails = await prisma.maintenanceHistory.findMany({
+    include: {crewAssigned: true, trainMaintained: true},
+    orderBy: { maintainedTrainID: "asc" },
+  });
+
+  //const header = trains.map
+
+  // I DONT QUITE KNOW HOW TO MAKE THIS A HEADER YET
+  //const data = trainModelDetails.map(t => ({
+  //  trainId: `T-${t.trainID.toString().padStart(4, '0')}`,
+  //  modelId: `${t.trainModel.trainType}-${t.trainModelID.toString().padStart(3, '0') }`,
+  //  maxSpeed: ``,
+  //  noSeats: ``,
+  //  noToilets: ``,
+  //}));
+
+  const data = maintenanceHistoryDetails.map(t => ({
+        maintainedTrainID: `T-${t.maintainedTrainID.toString().padStart(4, '0')}`,
+        date: `${t.date.toString()}`,
+        crewAssigned: `${t.crewAssigned.toString()}`,
+        task: `${t.task.toString()}`,
+        condition: `${t.condition}`,
+    }));
+
   return (
     <div className="my-10">
 
