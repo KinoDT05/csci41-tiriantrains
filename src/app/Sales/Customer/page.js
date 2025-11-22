@@ -91,7 +91,7 @@ export default function Customer() {
             <Attribute name="Total Cost" value="26 coins" color={true} />
         </div>    
       </div>  
-      
+      <h1 className="text-5xl">Trip Itinerary</h1>
       <Table columns={columns} data={data} />
 
     </div>
