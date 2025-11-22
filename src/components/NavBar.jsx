@@ -13,6 +13,7 @@ export default function NavBar() {
             <a className="hover:underline" href="/Routes">Routes</a>
             <a className="hover:underline" href="/Sales">Sales</a>
             <a className="hover:underline" href="/Schedule">Schedule</a>
+            <a className="hover:underline" href="/LoginPage">Login</a>
     </div>
     </div>
 

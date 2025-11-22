@@ -1,7 +1,8 @@
 export default function Button({name, link}){
   return (
     <a href={link}>
-      <div className="text-white p-3 bg-secondary rounded-xl hover:bg-primary hover:text-black">{name}</div>
+      <div className="my-4 text-white px-4 py-2 w-fit bg-secondary rounded-xl 
+      hover:bg-primary hover:border  hover:text-black">{name}</div>
     </a>
   );
 }
