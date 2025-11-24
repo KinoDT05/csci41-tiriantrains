@@ -64,6 +64,7 @@ model Crew {
 }
 
 model MaintenanceHistory {
+  maintenanceID		Int		@id @default(autoincrement())
   date              DateTime
   maintainedTrainID Int
   maintainer        String
@@ -71,8 +72,6 @@ model MaintenanceHistory {
   condition         String @default(" ")
   crewAssigned      Crew     @relation(fields: [maintainer], references: [crewName])
   trainMaintained   Train    @relation(fields: [maintainedTrainID], references: [trainID])
-
-  @@id([date, maintainedTrainID, maintainer])
 }
 
 model Station {
