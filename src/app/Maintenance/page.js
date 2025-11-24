@@ -4,38 +4,34 @@
 import Header from "@/components/Header";
 import Table from "@/components/Table";
 import Button from "@/components/Button";
+import prisma from "../../../lib/prisma";
+
 
 // Make your queries here !!!
 // Just an example
 const columns = [
-  { key: "trainId", label: "TrainID" },
-  { key: "date", label: "Date" },
-  { key: "crew", label: "Crew In Charge" },
-  { key: "task", label: "Task" },
-  { key: "condition", label: "Condition" },
+  { key: "trainId", label: "Train ID" },
+  { key: "trainModelID", label: "Train Model" },
 ];
 
-const data = [
-  {
-    trainId: "S001",
-    date: "2025-12-20",
-    crew: "The Clean Up Crew",
-    task: "Cleaning",
-    condition: "Good",
-  },
-  {
-    trainId: "S001",
-    date: "2025-12-20",
-    crew: "The Clean Up Crew",
-    task: "Cleaning",
-    condition: "Good",
-  },
-];
 
-// End of Queries
 
-export default function Maintenance() {
-  return (
+export default async function Maintenance() {
+    const trains = await prisma.train.findMany({
+        include: { trainModel: true },
+        orderBy: { trainID: "asc" },
+    });
+
+    const data = trains.map(t => ({
+        trainId: `T-${t.trainID.toString().padStart(4, '0')}`,
+        trainModelID: `${t.trainModel.trainType}-${t.trainModelID.toString().padStart(3, '0') }`,
+    }));
+
+    console.log(columns)
+    console.log(data)
+
+    // End of Queries
+   return (
     <div className="my-10">
     <Header name="Maintenance History" desc="This view contains a list of maintenance histories." />
     <div className="flex flex-row gap-2">

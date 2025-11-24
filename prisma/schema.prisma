@@ -1,0 +1,133 @@
+enum Gender_enum {
+  Male
+  Female
+  Others
+}
+
+enum Train_Type_enum {
+  A
+  S
+}
+
+enum Location_enum {
+  Intertown
+  WestWood
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("PRISMA_DATABASE_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL") // uses a direct connection
+}
+
+model User {
+  customerID Int         @id @default(autoincrement())
+  givenName String
+  lastName  String
+  gender    Gender_enum @default(Others)
+  tickets Ticket[]
+  @@map(name: "users")
+}
+
+model TrainModel {
+  modelID             Int             @id @default(autoincrement())
+  trainType           Train_Type_enum
+  maxSpeed            Int             @default(0)
+  noSeats             Int             @default(100)
+  noToilets           Int             @default(0)
+  hasRecliningSeats   Boolean         @default(false)
+  hasFoldingTables    Boolean         @default(false)
+  hasDisabilityAccess Boolean         @default(false)
+  hasLuggageStorage   Boolean         @default(false)
+  hasVendingMachines  Boolean         @default(false)
+  hasFoodService      Boolean         @default(false)
+  trains              Train[]
+}
+
+model Train {
+  trainID              Int                  @id @unique @default(autoincrement())
+  trainModelID         Int
+  trainModel           TrainModel           @relation(fields: [trainModelID], references: [modelID])
+  maintenanceHistories MaintenanceHistory[]
+  schedules Schedule[]
+}
+
+model Crew {
+  crewName             String               @id
+  inCharge             String
+  maintenanceHistories MaintenanceHistory[]
+}
+
+model MaintenanceHistory {
+  date              DateTime
+  maintainedTrainID Int
+  maintainer        String
+  task              String
+  condition         String @default(" ")
+  crewAssigned      Crew     @relation(fields: [maintainer], references: [crewName])
+  trainMaintained   Train    @relation(fields: [maintainedTrainID], references: [trainID])
+
+  @@id([date, maintainedTrainID, maintainer])
+}
+
+model Station {
+   stationID Int @id @default(autoincrement())
+   stationName String @unique
+   location Location_enum @default(Intertown)
+   originRoutes        Route[]  @relation("OriginRelation")
+   destinationRoutes   Route[]  @relation("DestinationRelation")
+}
+
+model Route {
+   routeID Int @id @default(autoincrement())
+   
+   originID Int
+   originStation Station @relation("OriginRelation" ,fields: [originID], references:[stationID])
+
+   destinationID Int
+   destinationStation Station @relation("DestinationRelation", fields:[destinationID], references: [stationID])
+
+   durationInMinutes Int
+   cost Int
+
+   schedules Schedule[]
+}
+
+model Schedule {
+   scheduleID Int @id @default(autoincrement())
+
+   routeID Int
+   route Route @relation(fields:[routeID], references:[routeID])
+
+   trainID Int
+   trainInTransit Train @relation(fields:[trainID], references:[trainID])
+
+   departure DateTime
+   Arrival DateTime?
+
+   itinerary Itinerary[]
+}
+
+
+model Ticket {
+   ticketID Int @id @default(autoincrement())
+   
+   customerID Int
+   customer User @relation(fields:[customerID], references: [customerID])
+
+   itinerary Itinerary[]
+}
+
+model Itinerary {
+   itineraryID Int @id @default(autoincrement())
+
+   scheduleID Int
+   schedule Schedule @relation(fields:[scheduleID], references:[scheduleID])
+
+   ticketID Int
+   ticket Ticket @relation(fields:[ticketID], references:[ticketID])
+}
