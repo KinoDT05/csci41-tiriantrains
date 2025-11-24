@@ -1,4 +1,4 @@
-export default function Table({ columns = [], data = [] }) {
+export default function LinkTable({ columns = [], data = [] }) {
   const numCols = columns.length;
 
   return (
