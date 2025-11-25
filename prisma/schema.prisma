@@ -77,7 +77,7 @@ model MaintenanceHistory {
 model Station {
    stationID Int @id @default(autoincrement())
    stationName String @unique
-   location Location_enum @default(Intertown)
+   locationList Location_enum[]
    originRoutes        Route[]  @relation("OriginRelation")
    destinationRoutes   Route[]  @relation("DestinationRelation")
 }
