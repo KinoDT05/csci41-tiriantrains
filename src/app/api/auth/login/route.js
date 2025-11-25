@@ -19,17 +19,14 @@ export async function POST(req) {
     const response = NextResponse.json({ user: { id: user.customerID, email: user.email } });
     response.cookies.set({
         name: "loggedIn",
-        value: String(user.customerID), // store user ID
+        value: String(user.customerID),
+        httpOnly: true,      // secure cookie
         path: "/",
-        httpOnly: false,
+        maxAge: 60 * 60 * 24,
         sameSite: "strict",
-        maxAge: 60 * 60 * 24, // 1 day
     });
 
 
     
-    return new Response(
-        JSON.stringify({ user: { id: user.id, email: user.email, givenName: user.givenName, lastName: user.lastName } }),
-        { status: 201 }
-    );
+    return response;
 }
