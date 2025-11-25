@@ -26,10 +26,11 @@ datasource db {
 
 model User {
   customerID Int         @id @default(autoincrement())
+  email String @unique
   givenName String
   lastName  String
   password String        @default("TestPassword")
-  gender    Gender_enum @default(Others)
+  birthDate DateTime 
   tickets Ticket[]
   @@map(name: "users")
 }

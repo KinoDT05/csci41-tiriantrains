@@ -1,21 +1,55 @@
+"use client";
+
 import Field from "@/components/Field";
-import Button from "@/components/Button";
+import SubmitButton from "@/components/SubmitButton";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Login(){
-    return(
-    <div className="p-5 w-1/3 mx-auto my-5 bg-primary flex flex-col items-center rounded-xl">
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [givenName, setGivenName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [error, setError] = useState("");
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        try {
+            const res = await fetch("/api/auth/signup", {
+                method: "POST",
+                body: JSON.stringify({ email, givenName, lastName, password, birthDate }),
+                headers: { "Content-Type": "application/json" },
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+
+            alert(`Account created for ${data.user.givenName || data.user.email}`);
+            router.push("/LoginPage");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+
+    return (
+        <form onSubmit={handleSignup} className="p-5 w-1/3 mx-auto my-5 bg-primary flex flex-col items-center rounded-xl">
+
+        
         <div className="text-5xl font-bold flex items-center m-2">Register</div>
-        <Field name="Username" prompt="Type your username"/> 
-        <Field name="Password" prompt="Type your password"/> 
-        <Field name="Confirm Passowrd" prompt="Type your password"/> 
-        <Field name="Lastname" prompt="Type your lastname"/> 
-        <Field name="Firstname" prompt="Type your firstname"/> 
-        <Field name="Middle Initial" prompt="Type your middle initial"/> 
-        <Field name="Birthdate" prompt="Type your birthdate"/> 
-        <Field name="Gender" prompt="Select your gender"/> 
 
-
-        <Button name="Register" link="/RegisterPage" />
-    </div>
+                <Field name="Email" prompt="Type your username" value={email} setValue={setEmail} type="email" /> 
+                <Field name="Password" prompt="Type your password" value={password} setValue={setPassword} type="password" /> 
+                <Field name="Last name" prompt="Type your last name" value={lastName} setValue={setLastName} type="text" />
+                <Field name="Given Name" prompt="Type your given name" value={givenName} setValue={setGivenName} type="text" /> 
+                <Field name="Birthdate" prompt="Type your birthdate" value={birthDate} setValue={setBirthDate} type="date"/> 
+                {error && <p className="text-red-500 mb-4">{error}</p>}
+            <SubmitButton name="Register"/>
+        </form>
     );
 }

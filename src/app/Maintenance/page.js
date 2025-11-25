@@ -4,7 +4,7 @@
 import Header from "@/components/Header";
 import LinkTable from "@/components/LinkTable";
 import Button from "@/components/Button";
-import prisma from "../../../lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 
 // Make your queries here !!!

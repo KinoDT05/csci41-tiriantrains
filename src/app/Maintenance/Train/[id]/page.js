@@ -1,7 +1,7 @@
 import Table from "@/components/Table";
 import Attribute from "@/components/Attribute";
 import BoolAttribute from "@/components/BoolAttribute";
-import prisma from "../../../../../lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 
 const columns = [
@@ -13,7 +13,7 @@ const columns = [
 ];
 
 export default async function Train({ params }) {
-    const { id } = await params; // await here
+    const { id } = await params; 
 
     const trainIDParam = parseInt(id);
 

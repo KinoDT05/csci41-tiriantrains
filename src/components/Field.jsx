@@ -1,8 +1,14 @@
-export default function Field({name, prompt}){
+export default function Field({name, type, value, setValue, prompt}){
     return (<>
-    <div className="text-left self-start" >{name} </div>  
-    <div className="bg-background text-gray-400 p-1.5 rounded-md m-3 w-full">
-    {prompt}
-    </div>
+        <div className="flex flex-col w-full mb-4">
+            <div className="text-left font-semibold mb-1">{name}</div>
+            <input
+                type={type}
+                placeholder={prompt}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="bg-background text-gray-700 p-2 rounded-md border border-gray-300 w-full"
+            />
+        </div>
     </>)
 }
