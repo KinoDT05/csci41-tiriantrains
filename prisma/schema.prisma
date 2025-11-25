@@ -75,33 +75,33 @@ model MaintenanceHistory {
 }
 
 model Station {
-   stationID Int @id @default(autoincrement())
-   stationName String @unique
+   stationName String @id
    locationList Location_enum[]
    originRoutes        Route[]  @relation("OriginRelation")
    destinationRoutes   Route[]  @relation("DestinationRelation")
 }
 
 model Route {
-   routeID Int @id @default(autoincrement())
-   
-   originID Int
-   originStation Station @relation("OriginRelation" ,fields: [originID], references:[stationID])
+   originID String
+   originStation Station @relation("OriginRelation" ,fields: [originID], references:[stationName])
 
-   destinationID Int
-   destinationStation Station @relation("DestinationRelation", fields:[destinationID], references: [stationID])
+   destinationID String
+   destinationStation Station @relation("DestinationRelation", fields:[destinationID], references: [stationName])
 
    durationInMinutes Int @default(5)
    cost Int  @default(2) 
 
    schedules Schedule[]
+
+   @@id([originID, destinationID])
 }
 
 model Schedule {
    scheduleID Int @id @default(autoincrement())
 
-   routeID Int
-   route Route @relation(fields:[routeID], references:[routeID])
+   originID String
+   destinationID String
+   route Route @relation(fields: [originID, destinationID], references: [originID, destinationID])
 
    trainID Int
    trainInTransit Train @relation(fields:[trainID], references:[trainID])
