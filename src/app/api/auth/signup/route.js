@@ -16,7 +16,7 @@ export async function POST(req) {
             email,
             givenName,
             lastName,
-            birthDate: new Date(birthDate), 
+            birthDate: new Date(birthDate),
             password: hashedPassword,
         },
     });

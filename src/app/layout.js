@@ -2,6 +2,7 @@ import { Jaini } from "next/font/google";
 import { Inika } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import NextAuthProvider from "@/providers/NextAuthProvider";
 
 const jaini = Jaini({
   variable: "--font-header",
@@ -21,12 +22,17 @@ export const metadata = {
   description: "Narnian Railway System. Always on time, never late, and never delayed",
 };
 
+
+
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <body className={`${jaini.variable} ${inika.variable} antialiased`}>
-        <NavBar />
-        {children}
+              <NextAuthProvider>
+              <NavBar />
+                  {children}
+              </NextAuthProvider>
       </body>
     </html>
   );

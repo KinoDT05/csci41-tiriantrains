@@ -10,5 +10,5 @@ export default function Field({name, type, value, setValue, prompt}){
                 className="bg-background text-gray-700 p-2 rounded-md border border-gray-300 w-full"
             />
         </div>
-    </>)
+    </>);
 }
