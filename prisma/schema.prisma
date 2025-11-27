@@ -36,7 +36,7 @@ model User {
 }
 
 model TrainModel {
-  modelID             String             @id
+  modelID             Int             @id @default(autoincrement())
   maxSpeed            Int             @default(0)
   noSeats             Int             @default(100)
   noToilets           Int             @default(0)
@@ -52,7 +52,7 @@ model TrainModel {
 model Train {
   trainID              Int                  @id @unique @default(autoincrement())
   trainType           Train_Type_enum
-  trainModelID         String
+  trainModelID         Int
   trainModel           TrainModel           @relation(fields: [trainModelID], references: [modelID])
   maintenanceHistories MaintenanceHistory[]
   schedules Schedule[]
