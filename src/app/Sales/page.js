@@ -1,10 +1,6 @@
 import Table from "@/components/Table";
 import Header from "@/components/Header";
 
-/**
- * Make your queries here!!!
- * This is just a sample
- */
 const columns = [
   { key: "trainId", label: "TrainID" },
   { key: "date", label: "Date" },

@@ -1,11 +1,14 @@
+
+"use client";
+
+import { useSession } from "next-auth/react";
 import Table from "@/components/Table";
 import Attribute from "@/components/Attribute";
 import BoolAttribute from "@/components/BoolAttribute";
+import { useEffect,useState } from "react";
+import { useRouter } from "next/navigation";
 
-/**
- * Make your queries here!!!
- * This is just a sample
- */
+
 const columns = [
   { key: "trainId", label: "Train ID" },
   { key: "origin", label: "Origin" },
@@ -18,81 +21,65 @@ const columns = [
 
 
 ];
-const data = [
-  {
-    trainId: "S001",
-    origin: "New York",
-    destination: "Washington D.C.",
-    departure: "2025-12-20 08:00",
-    arrival: "2025-12-20 12:00",
-    duration: "4h 0m",
-    cost: "$120",
-  },
-  {
-    trainId: "S002",
-    origin: "Boston",
-    destination: "Philadelphia",
-    departure: "2025-12-20 09:30",
-    arrival: "2025-12-20 14:00",
-    duration: "4h 30m",
-    cost: "$135",
-  },
-  {
-    trainId: "S003",
-    origin: "Chicago",
-    destination: "St. Louis",
-    departure: "2025-12-21 07:15",
-    arrival: "2025-12-21 11:00",
-    duration: "3h 45m",
-    cost: "$95",
-  },
-  {
-    trainId: "S004",
-    origin: "Los Angeles",
-    destination: "San Francisco",
-    departure: "2025-12-21 10:00",
-    arrival: "2025-12-21 16:00",
-    duration: "6h 0m",
-    cost: "$150",
-  },
-  {
-    trainId: "S005",
-    origin: "Seattle",
-    destination: "Portland",
-    departure: "2025-12-22 06:45",
-    arrival: "2025-12-22 10:15",
-    duration: "3h 30m",
-    cost: "$80",
-  },
-];
-
-// End of Queries
+const data = [];
+const date = new Date();
 
 export default function Customer() {
-  return (
+
+    const { data: session, status } = useSession();
+
+    
+
+    const userID = session?.user?.customerID;
+    const [user, setUser] = useState(null);
+    
+    const dateString = date.toISOString().split("T")[0]
+    console.log(userID);
+
+    useEffect(() => {
+        
+        async function fetchUser() {
+            const res = await fetch(`/api/user/${userID}`);
+
+            if (!res.ok) {
+                console.log("Not Okay");
+                setUser(null);
+                return;
+            }
+            const json = await res.json();
+            console.log(json);
+            setUser(json.user);
+        }
+
+        fetchUser();
+    }, [userID]);
+
+    if (!user) return <div>Loading...</div>;
+    if (status === "loading") {
+        return <p>Loading...</p>;
+    }
+   return (
     <div className="my-10">
 
       {/*Inside the header */}
       <div className="bg-primary p-5 rounded-3xl my-5">
         <div className="flex flex-row justify-between">
-            <div className="text-6xl font-bold my-2">Customer ID: 7288</div>    
-            <Attribute name="Date" value="2025-12-20" color={true} />
+                   <div className="text-6xl font-bold my-2">Customer ID: { user.userID }</div>    
+                   <Attribute name="Date" value={dateString} color={true} />
         </div>
           
         <div className="flex flex-row justify-between items-end">
             <div className="w-3/4 flex flex-wrap gap-5">
                 {/* Replace this with a map */}
-                <Attribute name="Last Name" value="Grove" />
-                <Attribute name="First Name" value="Adam" />
-                <Attribute name="Middle Initial" value="L" />
-                <Attribute name="Gender" value="Male" />
-                <Attribute name="Birthday" value="2025-12-20" />
+                       <Attribute name="Last Name" value={user.lastName} />
+                       <Attribute name="First Name" value={user.lastName} />
+                        <Attribute name="Gender" value="Male" />
+                       <Attribute name="Birthday" value={user.birthDate} />
             </div>
-            <Attribute name="Total Cost" value="26 coins" color={true} />
+                   <Attribute name="Total Cost" value={user.tickets} color={true} />
         </div>    
       </div>  
       <div className="text-4xl font-bold">Trip Itinerary</div>
-      <Table columns={columns} data={data} />
 
     </div>
   );

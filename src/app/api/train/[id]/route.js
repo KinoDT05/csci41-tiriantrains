@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function GET(req, context) {
-    const params = await context.params;   // unwrap the promise
+    const params = await context.params;  
     const trainId = params.id;   
     console.log(trainId);
 

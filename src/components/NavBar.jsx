@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 export default function NavBar() {
     const { data: session, status } = useSession();
     const isLoggedIn = !!session?.user; 
+
     return (
 
         <div className="flex flex-row justify-between">
