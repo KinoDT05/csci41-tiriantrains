@@ -36,6 +36,7 @@ export const authOptions = {
 
         async session({ session, token }) {
             if (token) {
+                if (!session?.user) return session; 
                 session.user.customerID = token.id;
                 session.user.givenName = token.givenName;  // add custom field
                 session.user.lastName = token.lastName;
