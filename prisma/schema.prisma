@@ -9,6 +9,14 @@ enum Train_Type_enum {
   S
 }
 
+enum Condition_enum {
+  Excellent
+  VeryGood
+  Good
+  Ok
+  Bad
+}
+
 enum Location_enum {
   Intertown
   WestWood
@@ -58,20 +66,13 @@ model Train {
   schedules Schedule[]
 }
 
-model Crew {
-  crewName             String               @id
-  inCharge             String
-  maintenanceHistories MaintenanceHistory[]
-}
-
 model MaintenanceHistory {
   maintenanceID		Int		@id @default(autoincrement())
   date              DateTime
   maintainedTrainID Int
-  maintainer        String
+  crewInCharge        String
   task              String
-  condition         String @default(" ")
-  crewAssigned      Crew     @relation(fields: [maintainer], references: [crewName])
+  condition         Condition_enum @default(Excellent)
   trainMaintained   Train    @relation(fields: [maintainedTrainID], references: [trainID])
 }
 
@@ -107,8 +108,8 @@ model Schedule {
    trainID Int
    trainInTransit Train @relation(fields:[trainID], references:[trainID])
 
-   departure DateTime
-   Arrival DateTime?
+   departure DateTime @default(now())
+   Arrival DateTime @default(now())
 
    itinerary Itinerary[]
 }
@@ -116,10 +117,12 @@ model Schedule {
 
 model Ticket {
    ticketID Int @id @default(autoincrement())
-   
+   date DateTime @default(now())
+
    customerID Int
    customer User @relation(fields:[customerID], references: [customerID])
 
+   total_cost Int @default(0)
    itinerary Itinerary[]
 }
 
