@@ -1,14 +1,10 @@
-/**
- * This is the main maintenance history page
- */
+'use client';
+
+import { useEffect, useState } from 'react';
 import Header from "@/components/Header";
 import LinkTable from "@/components/LinkTable";
 import Button from "@/components/Button";
-import { prisma } from '@/lib/prisma';
 
-
-// Make your queries here !!!
-// Just an example
 const columns = [
   { key: "trainId", label: "Train ID" },
   { key: "trainModelID", label: "Train Model" },
@@ -17,22 +13,21 @@ const columns = [
 
 
 
-export default async function Maintenance() {
-    const trains = await prisma.train.findMany({
-        include: { trainModel: true },
-        orderBy: { trainID: "asc" },
-    });
+export default function Maintenance() {
+    const [trains, setTrains] = useState([]);
 
-    const data = trains.map(t => ({
-        trainId: `T-${t.trainID.toString().padStart(4, '0')}`,
-        trainModelID: `${t.trainModel.trainType}-${t.trainModelID.toString().padStart(3, '0')}`,
-        link: `Maintenance/Train/${t.trainID}`
-    }));
+    useEffect(() => {
+        async function fetchTrains() {
+            const res = await fetch('/api/train/list', { method: 'POST' });
+            const json = await res.json();
+            setTrains(json.trains);
+        }
 
-    console.log(columns)
-    console.log(data)
+        fetchTrains();
+    }, []);
 
-    // End of Queries
+
+
    return (
     <div className="my-10">
     <Header name="Maintenance History" desc="This view contains a list of maintenance histories." />
@@ -41,7 +36,7 @@ export default async function Maintenance() {
       <Button name="Crews" link="Maintenance/Crews"/>
 
     </div>
-    <LinkTable columns={columns} data={data} />
+    <LinkTable columns={columns} data={trains} />
 
     </div>
   );
