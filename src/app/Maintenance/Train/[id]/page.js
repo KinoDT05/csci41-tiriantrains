@@ -6,6 +6,8 @@ import BoolAttribute from "@/components/BoolAttribute";
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
+import Loading from "@/components/Loading";
+
 const columns = [
   { key: "date", label: "Date" },
   { key: "crewInCharge", label: "Crew In Charge" },
@@ -36,8 +38,10 @@ export default function Train() {
 
     console.log(trainId)
     console.log(train)
-    if (!train) return <div>Loading...</div>;
+
+    if (!train) return <Loading />
     console.log(train.maintenanceHistory)
+    
     return (
         
     <div className="my-10">
@@ -47,7 +51,6 @@ export default function Train() {
               <div className="text-6xl font-bold my-2">Train ID: {train.trainId} </div>    
           <div className="flex flex-row gap-5">
 
-            {/* Replace this with a map */}
                   <Attribute name="Model" value={train.trainModelID} />
                     <Attribute name="Max Speed (kph)" value={train.maxSpeed} />
                     <Attribute name="No. of Seats" value={train.noSeats} />
@@ -57,7 +60,6 @@ export default function Train() {
       </div>  
       
       <div className="flex ">
-      {/* Replace this with a map */}
                 <BoolAttribute name="Reclining Seats" bool={train.hasRecliningSeats} />  
                 <BoolAttribute name="Folding Table" bool={train.hasFoldingTables} />  
                 <BoolAttribute name="Disability Access" bool={train.hasDisabilityAccess} />  
