@@ -110,7 +110,7 @@ model Schedule {
    trainInTransit Train @relation(fields:[trainID], references:[trainID])
 
    departure DateTime @default(now())
-   Arrival DateTime @default(now())
+   arrival DateTime @default(now())
 
    itinerary Itinerary[]
 }
