@@ -32,9 +32,6 @@ export default function Maintenance() {
     <div className="my-10">
     <Header name="Maintenance History" desc="This view contains a list of maintenance histories." />
     <div className="flex flex-row gap-2">
-      <Button name="Employees" link="Maintenance/Employees"/>
-      <Button name="Crews" link="Maintenance/Crews"/>
-
     </div>
     <LinkTable columns={columns} data={trains} />
 
