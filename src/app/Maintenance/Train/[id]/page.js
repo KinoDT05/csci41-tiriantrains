@@ -6,7 +6,7 @@ import BoolAttribute from "@/components/BoolAttribute";
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import Loading from "@/components/Loading";
+import Wait from "@/components/Wait";
 
 const columns = [
   { key: "date", label: "Date" },
@@ -39,7 +39,7 @@ export default function Train() {
     console.log(trainId)
     console.log(train)
 
-    if (!train) return <Loading />
+    if (!train) return <Wait />
     console.log(train.maintenanceHistory)
     
     return (
