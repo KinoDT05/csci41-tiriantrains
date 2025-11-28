@@ -14,7 +14,7 @@ export default function Schedule() {
 
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [schedules, setSchedules] = useState([]);
-
+    const [error, setError] = useState("");
     const { data: session, status } = useSession();
 
     const userID = session?.user?.customerID;
@@ -36,8 +36,25 @@ export default function Schedule() {
     }, [date]);
 
 
-    const handleAddItinerary = (row) => {
-        console.log("Button clicked for row:", row);
+    const handleAddItinerary = async (row) => {
+        
+        try {
+            console.log(row);
+            const res = await fetch(`/api/user/${userID}/${date}/ticket/add_itinerary/${row.scheduleID}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            const data = await res.json();
+            console.log(data);
+            if (!res.ok) throw new Error(data.error);
+
+                alert(`Itinerary#${data.itinerary.itineraryID}  was added to Ticket#${data.ticket.ticketID}`);
+            } catch (err) {
+                setError(err.message);
+                alert(err.message);
+            }
+        
     };
 
 
