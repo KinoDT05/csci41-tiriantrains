@@ -78,7 +78,6 @@ model MaintenanceHistory {
 
 model Station {
    stationName String @id
-   locationList Location_enum[]
    originRoutes        Route[]  @relation("OriginRelation")
    destinationRoutes   Route[]  @relation("DestinationRelation")
 }
@@ -94,6 +93,8 @@ model Route {
    cost Int  @default(2) 
 
    schedules Schedule[]
+
+   location Location_enum @default(WestWood)
 
    @@id([originID, destinationID])
 }
