@@ -14,11 +14,15 @@ export const authOptions = {
             },
             async authorize(credentials) {
                 const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-                if (!user) return null;
+                if (!user) {
+                    throw new Error("No user found with this email");
+                }
 
                 const isValid = await bcrypt.compare(credentials.password, user.password);
-                if (!isValid) return null;
 
+                if (!isValid) {
+                    throw new Error("Incorrect password");
+                }
                 return { id: user.customerID, givenName: user.givenName, lastName: user.lastName, email: user.email };
             },
         }),

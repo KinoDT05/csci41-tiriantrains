@@ -40,6 +40,13 @@ export default function Login() {
             <div className="text-5xl font-bold flex items-center m-2">Login</div>
             <Field name="Email" prompt="Type your username" value={email} setValue={setEmail} type="email" />
             <Field name="Password" prompt="Type your password" value={password} setValue={setPassword} type="password" />
+
+            {error && (
+                <p className="text-red-500 mb-2 font-medium">
+                    {error}
+                </p>
+            )}
+
             <SubmitButton name={loading ? "Logging in..." : "Login"} disabled={loading} />
             Don't have an account yet?
             <Button name="Register" link="/RegisterPage" />
