@@ -38,7 +38,7 @@ export default function Routes() {
           <div className="flex flex-row gap-2">
               <PageButton name="All" onClick={() => setLocation("All")} />
               <PageButton name="Intertown" onClick={() => setLocation("Intertown")} />
-              <PageButton name="WesternWood" onClick={() => setLocation("WestWood")} />
+              <PageButton name="WesternWood" onClick={() => setLocation("WesternWood")} />
           </div>
           <Table columns={columns} data={routes} />
       

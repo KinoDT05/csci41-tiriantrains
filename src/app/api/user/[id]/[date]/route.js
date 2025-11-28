@@ -53,6 +53,8 @@ export async function GET(req, context) {
             userID: `${user.customerID.toString().padStart(4, '0')}`,
             givenName: user.givenName,
             lastName: user.lastName,
+            middleInitial: user.middleInitial,
+            gender: user.gender,
             customerID: user.customerID,
             birthDate: user.birthDate.toISOString().split("T")[0],
             ticket: ticket,

@@ -16,6 +16,7 @@ export default function Login(){
     const [error, setError] = useState("");
 
     const [gender, setGender] = useState("");
+    const [middleInitial, setMiddleInitial] = useState("");
 
 
     const handleSignup = async (e) => {
@@ -25,7 +26,7 @@ export default function Login(){
         try {
             const res = await fetch("/api/auth/signup", {
                 method: "POST",
-                body: JSON.stringify({ email, givenName, lastName, password, birthDate }),
+                body: JSON.stringify({ email, givenName, lastName, password, birthDate, middleInitial, gender }),
                 headers: { "Content-Type": "application/json" },
             });
 
@@ -50,7 +51,8 @@ export default function Login(){
                 <Field name="Password" prompt="Type your password" value={password} setValue={setPassword} type="password" /> 
                 <Field name="Last name" prompt="Type your last name" value={lastName} setValue={setLastName} type="text" />
                 <Field name="Given Name" prompt="Type your given name" value={givenName} setValue={setGivenName} type="text" /> 
-                <Field name="Birthdate" prompt="Type your birthdate" value={birthDate} setValue={setBirthDate} type="date"/> 
+                <Field name="Given Name" prompt="Type your given name" value={middleInitial} setValue={setMiddleInitial} type="text" /> 
+                <Field name="Birthdate" prompt="Type your birthdate" value={birthDate} setValue={setBirthDate} type="date" /> 
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 
                 <div className="text-left font-semibold">Gender</div>

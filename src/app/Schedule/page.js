@@ -48,7 +48,7 @@ export default function Schedule() {
             const data = await res.json();
             console.log(data);
             if (!res.ok) throw new Error(data.error);
-
+                console.log(data.ticket.total_cost);
                 alert(`Itinerary#${data.itinerary.itineraryID}  was added to Ticket#${data.ticket.ticketID}`);
             } catch (err) {
                 setError(err.message);
@@ -65,6 +65,7 @@ export default function Schedule() {
             { key: "destination", label: "Destination" },
             { key: "departure", label: "Departure" },
             { key: "arrival", label: "Arrival" },
+            { key: "cost", label: "Cost" },
             { key: "getTicket!", label: "Get Ticket!" }
         ];
     } else {

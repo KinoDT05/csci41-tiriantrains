@@ -51,7 +51,8 @@ export async function GET(req, context) {
             destination: s.destinationID,
             trainId: `T-${s.trainID.toString().padStart(4, '0')}`,
             departure: `${depHours}:${depMinutes}`,
-            arrival: `${arrivalHours}:${arrivalMinutes}`
+            arrival: `${arrivalHours}:${arrivalMinutes}`,
+            cost: `${s.route.cost} Lion Coins`,
         };
     });
 

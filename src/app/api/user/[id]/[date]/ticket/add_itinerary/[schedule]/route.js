@@ -61,9 +61,11 @@ export async function POST(req, context) {
 
  
     if (!ticket) {
-        return new Response(JSON.stringify({ error: 'Ticket does not exist' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
+        ticket = await prisma.ticket.create({
+            data: {
+                date: date,
+                customerID: userID,
+            },
         });
     }
 

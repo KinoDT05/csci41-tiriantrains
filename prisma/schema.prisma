@@ -19,7 +19,7 @@ enum Condition_enum {
 
 enum Location_enum {
   Intertown
-  WestWood
+  WesternWood
 }
 
 generator client {
@@ -37,6 +37,8 @@ model User {
   email String @unique
   givenName String
   lastName  String
+  middleInitial String @default("A")
+  gender Gender_enum @default(Male)
   password String        @default("TestPassword")
   birthDate DateTime 
   tickets Ticket[]
@@ -94,7 +96,7 @@ model Route {
 
    schedules Schedule[]
 
-   location Location_enum @default(WestWood)
+   location Location_enum @default(WesternWood)
 
    @@id([originID, destinationID])
 }

@@ -90,7 +90,8 @@ export default function Customer() {
                 {/* Replace this with a map */}
                        <Attribute name="Last Name" value={user.lastName} />
                        <Attribute name="First Name" value={user.givenName} />
-                        <Attribute name="Gender" value="Male" />
+                       <Attribute name="Middle Initial" value={user.middleInitial} />
+                       <Attribute name="Gender" value={user.gender} />
                        <Attribute name="Birthday" value={user.birthDate} />
             </div>
                    <Attribute name="Total Cost" value={user.totalCost} color={true} />
