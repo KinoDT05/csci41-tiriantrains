@@ -30,8 +30,6 @@ export default function Routes() {
         fetchRoutes();
     }, [location]);
 
-    console.log(location);
-
     if (!routes) return <div>Loading...</div>;
 
   return (

@@ -4,8 +4,6 @@ export async function GET(req, context) {
     const params = await context.params;
     const dateParam = params.date;
 
-    console.log("Date param:", dateParam);
-
     if (!dateParam) {
         return new Response(JSON.stringify({ error: 'Missing date' }), {
             status: 400,
@@ -18,7 +16,6 @@ export async function GET(req, context) {
     const start = new Date(date.setHours(0, 0, 0, 0));
     const end = new Date(date.setHours(23, 59, 59, 999));
 
-    console.log(start);
     const schedule = await prisma.schedule.findMany({
         where: {
             departure: {
@@ -49,6 +46,7 @@ export async function GET(req, context) {
         const arrivalMinutes = arrival.getMinutes().toString().padStart(2, '0');
 
         return {
+            scheduleID: s.scheduleID,
             origin: s.originID,
             destination: s.destinationID,
             trainId: `T-${s.trainID.toString().padStart(4, '0')}`,
