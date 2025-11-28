@@ -6,8 +6,6 @@ import BoolAttribute from "@/components/BoolAttribute";
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import Wait from "@/components/Wait";
-
 const columns = [
   { key: "date", label: "Date" },
   { key: "crewInCharge", label: "Crew In Charge" },
@@ -38,10 +36,9 @@ export default function Train() {
 
     console.log(trainId)
     console.log(train)
-
-    if (!train) return <Wait />
-    console.log(train.maintenanceHistory)
     
+    if (!train) return <div>Loading...</div>;
+    console.log(train.maintenanceHistory)
     return (
         
     <div className="my-10">
