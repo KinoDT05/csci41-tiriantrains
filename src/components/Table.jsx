@@ -21,7 +21,8 @@ export default function LinkTable({ columns = [], data = [] }) {
           {data.map((row, index) => (
             <div
               key={index}
-              className="grid items-center rounded-xl py-4 px-6 text-sm shadow-sm my-2 bg-primary"
+              className="grid items-center rounded-xl py-4 px-6 text-sm shadow-sm my-2 bg-primary
+                        hover:bg-[#E5E6AF]"
               style={{ gridTemplateColumns: `repeat(${numCols}, 1fr)` }}
             >
               {columns.map((col) => (
