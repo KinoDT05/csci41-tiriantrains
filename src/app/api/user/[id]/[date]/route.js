@@ -129,6 +129,8 @@ export async function GET(req, context) {
         givenName: user.givenName,
         lastName: user.lastName,
         customerID: user.customerID,
+        middleInitial: user.middleInitial,
+        gender: user.gender,
         birthDate: user.birthDate.toISOString().split("T")[0],
         ticket: updatedTicket,
         itinerary: intineraryFormatted,
