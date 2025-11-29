@@ -10,11 +10,6 @@ const tabs = [
     icon: "≡",
   },
   {
-    title: "Sales",
-    href: "/Sales",
-    icon: "🏷️",
-  },
-  {
     title: "Schedule",
     href: "/Schedule",
     icon: "🕒",
