@@ -51,7 +51,7 @@ export default function Login(){
                 <Field name="Password" prompt="Type your password" value={password} setValue={setPassword} type="password" /> 
                 <Field name="Last name" prompt="Type your last name" value={lastName} setValue={setLastName} type="text" />
                 <Field name="Given Name" prompt="Type your given name" value={givenName} setValue={setGivenName} type="text" /> 
-                <Field name="Given Name" prompt="Type your given name" value={middleInitial} setValue={setMiddleInitial} type="text" /> 
+                <Field name="Middle Initial" prompt="Type your given name" value={middleInitial} setValue={setMiddleInitial} type="text" /> 
                 <Field name="Birthdate" prompt="Type your birthdate" value={birthDate} setValue={setBirthDate} type="date" /> 
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 
